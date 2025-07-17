@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mehabalan – A Journey Beyond Books</title>
+  <link rel="stylesheet" href="biography.css">
+  <link rel="stylesheet" href="mediaqueries.css" />
+</head>
+<body class="bio-page">
+  <!-- Header -->
+  <header class="bio-header">
+    <h1>Mehabalan – A Journey Beyond Books</h1>
+    <p>From the soil of a village to the screens of technology</p>
+  </header>
+
+  <!-- Biography Story -->
+  <section class="bio-section">
+    <h2>👶 Childhood & Early Life</h2>
+    <p>
+      Mehabalan, the youngest son of Sethuraja and Sasikala, was born in Thamaraikulam, a growing village in Ramanathapuram, Tamil Nadu. 
+      Loved deeply by his elder brothers, Manobalan and Vinobalan, he grew up in a close-knit farmer family. 
+      <br><br>
+      Unlike most kids his age, life lessons for Mehabalan came outside classrooms. By 5th standard, he was confidently driving cars, bikes, 
+      and even heavy transport vehicles—skills far beyond his years. Farming, plumbing, and basic electrical work were everyday learnings, 
+      shaping his problem-solving mindset early in life.
+    </p>
+  </section>
+
+  <section class="bio-section">
+    <h2>🎥 The Creative Spark – YouTube in 2018</h2>
+    <p>
+      In 2018, while still in school, Mehabalan explored his creative side by starting a 
+      <a href="https://youtube.com/@mehabalan?si=vSlH_YIodhEE9T8W" target="_blank">YouTube channel</a>. 
+      Shooting, editing, and posting—all done by himself—he documented random moments and vlogs. 
+      Though not consistent, it revealed his independent and creative nature.
+    </p>
+  </section>
+
+  <section class="bio-section">
+    <h2>🎓 College Life – The Wanderer</h2>
+    <p>
+      In 2020, he joined RVS College of Engineering, Coimbatore, pursuing Computer Science and Engineering. 
+      But he wasn’t the typical studious college kid—he wandered through Coimbatore, Tirupur, and Erode, 
+      enjoying life more than lectures. 
+      <br><br>
+      His carefree attitude led to 6 arrears. But in his final semester, he shocked everyone by clearing 11 papers 
+      in a single attempt, proving his quick learning ability when focused. This was his first major comeback.
+    </p>
+  </section>
+
+  <section class="bio-section">
+    <h2>🌍 Bangalore – Lost in Translation, Quick in Adaptation</h2>
+    <p>
+      After graduation, Mehabalan moved to Bangalore in search of opportunities. On his first day, he couldn’t understand a word of Kannada—
+      even the bus conductor’s words felt like an unknown world. 
+      <br><br>
+      But within 15 days, he learned 80% of Kannada—enough to understand and speak confidently, even with small grammar mistakes. 
+      His Kannada-speaking roommate admired his speed of learning.
+      <br><br>
+      During this time, he self-studied Core Java, showing once again his ability to learn complex skills on his own.
+    </p>
+  </section>
+
+  <section class="bio-section">
+    <h2>💼 Job Struggles, Yet Happiness</h2>
+    <p>
+      Like many freshers, Mehabalan faced the classic dilemma: *“Everyone wants experience before giving you a job, but how to get 
+      experience without a job?”* 
+      <br><br>
+      For six months, he attended countless interviews but faced rejections. Yet, he embraced Bangalore’s climate, made friends, 
+      and continued vlogging, capturing the beauty of life even without a job.
+    </p>
+  </section>
+
+  <section class="bio-section">
+    <h2>🏙️ Chennai – The Breakthrough</h2>
+    <p>
+      After six months in Bangalore, he moved to Chennai for a fresh start. Here, he finally got his break—joining IT industry 
+      as a QA Intern. 
+      <br><br>
+      From there, he grew into a **Software Tester and QA Analyst**, mastering Manual and Automation Testing for web and mobile apps, 
+      API testing, and advanced QA methodologies.
+    </p>
+  </section>
+
+  <section class="bio-quote">
+    <blockquote>
+      “From the soil of a village to the screens of technology, my journey proves that learning has no boundaries.”
+    </blockquote>
+  </section>
+
+  <!-- Gallery Button -->
+  <div class="gallery-container">
+    <button class="gallery-btn" onclick="showGallery()">📸 View My Gallery</button>
+  </div>
+
+  <!-- Hidden Gallery Section -->
+  <section class="bio-gallery" id="bio-gallery">
+    <h2>Photo Gallery</h2>
+    <div class="gallery-grid" id="gallery-grid">
+      <!-- Placeholder Images -->
+    </div>
+  </section>
+
+  <!-- Lightbox Popup -->
+  <div id="lightbox" class="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" class="lightbox-content" alt="Gallery Image">
+  </div>
+  <section class="bio-continue">
+  <p>✨ <em>To Be Continued…</em> ✨</p>
+</section>
+
+
+  <footer class="bio-footer">
+    <p>© 2025 Mehabalan | Journey of a Dreamer</p>
+  </footer>
+
+ <script>
+  function showGallery() {
+    document.getElementById("bio-gallery").style.display = "block";
+  }
+
+  // ✅ List all your image filenames here
+  const galleryImages = [
+    "photo1.jpg",
+    "photo2.jpg",
+    "photo3.jpg",
+    "photo4.jpg",
+    "photo5.jpg",
+    "photo6.jpg"
+  ];
+
+  const galleryFolder = "gallery/"; // ✅ Folder where images are stored
+  const galleryGrid = document.getElementById("gallery-grid");
+
+  galleryImages.forEach(img => {
+    const imgElem = document.createElement("img");
+    imgElem.src = galleryFolder + img;  // ✅ Load from your folder
+    imgElem.alt = "Gallery Image";
+    imgElem.onclick = () => openLightbox(galleryFolder + img);
+    galleryGrid.appendChild(imgElem);
+  });
+
+  function openLightbox(src) {
+    document.getElementById("lightbox").style.display = "block";
+    document.getElementById("lightbox-img").src = src;
+  }
+
+  function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+  }
+</script>
+
+</body>
+</html>

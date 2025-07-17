@@ -1,103 +1,237 @@
-@media screen and (max-width: 1400px) {
-  #profile {
-    height: 83vh;
-    margin-bottom: 6rem;
-  }
-  .about-containers {
-    flex-wrap: wrap;
-  }
-  #contact,
-  #projects {
-    height: fit-content;
-  }
-}
-
-@media screen and (max-width: 1200px) {
+/* ✅ GLOBAL RESPONSIVE RULES */
+@media (max-width: 1024px) {
+  /* Hide desktop nav & show hamburger on smaller screens */
   #desktop-nav {
     display: none;
   }
   #hamburger-nav {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
   }
-  #experience,
-  .experience-details-container {
-    margin-top: 2rem;
-  }
-  #profile,
-  .section-container {
-    display: block;
-  }
-  .arrow {
-    display: none;
-  }
-  section,
-  .section-container {
-    height: fit-content;
-  }
+
+  /* Adjust sections padding globally */
   section {
-    margin: 0 5%;
+    margin: 0 2rem;
   }
-  .section__pic-container {
-    width: 275px;
-    height: 275px;
-    margin: 0 auto 2rem;
+
+  /* Make buttons & icons more compact */
+  .btn {
+    width: auto;
+    padding: 0.8rem 1.2rem;
   }
-  .about-containers {
-    margin-top: 0;
+  .icon {
+    height: 1.8rem;
   }
 }
 
-@media screen and (max-width: 600px) {
-  #contact,
-  footer {
-    height: 40vh;
-  }
-  #profile {
-    height: 83vh;
-    margin-bottom: 0;
-  }
-  article {
-    font-size: 1rem;
-  }
-  footer nav {
-    height: fit-content;
-    margin-bottom: 2rem;
-  }
-  .about-containers,
-  .contact-info-upper-container,
-  .btn-container {
-    flex-wrap: wrap;
-  }
-  .contact-info-container {
-    margin: 0;
-  }
-  .contact-info-container p,
-  .nav-links li a {
-    font-size: 1rem;
-  }
-  .experience-sub-title {
-    font-size: 1.25rem;
-  }
-  .logo {
-    font-size: 1.5rem;
-  }
-  .nav-links {
+/* ============================= */
+/* ✅ INDEX PAGE RESPONSIVE RULES */
+/* ============================= */
+
+@media (max-width: 1024px) {
+  body.index-page #profile {
     flex-direction: column;
-    gap: 0.5rem;
+    align-items: center;
     text-align: center;
+    gap: 2rem;
+    height: auto;
+    padding: 2rem 0;
   }
-  .section__pic-container {
-    width: auto;
-    height: 46vw;
-    justify-content: center;
+
+  body.index-page .section__pic-container {
+    height: 250px;
+    width: 250px;
   }
-  .section__text__p2 {
-    font-size: 1.25rem;
-  }
-  .title {
+
+  body.index-page .title {
     font-size: 2rem;
   }
-  .text-container {
-    text-align: justify;
+
+  body.index-page .section-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
   }
+
+  /* About section cards */
+  body.index-page .about-containers {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Skills section cards */
+  body.index-page .experience-details-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  body.index-page .article-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* Projects grid - stack vertically */
+  body.index-page #projects .about-containers {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* Contact section stack vertically */
+  body.index-page .contact-info-upper-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+}
+
+/* Even smaller screens */
+@media (max-width: 600px) {
+  body.index-page section {
+    margin: 0 1rem;
+  }
+
+  body.index-page .section__text__p2 {
+    font-size: 1.3rem;
+  }
+
+  body.index-page .btn-container {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  body.index-page .icon.arrow {
+    display: none; /* Hide arrows on very small screens */
+  }
+}
+
+/* ================================ */
+/* ✅ BIOGRAPHY PAGE RESPONSIVE RULES */
+/* ================================ */
+
+@media (max-width: 1024px) {
+  body.bio-page .bio-section {
+    margin: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  body.bio-page .bio-header h1 {
+    font-size: 2.2rem;
+  }
+
+  body.bio-page .bio-header p {
+    font-size: 1.1rem;
+  }
+
+  /* Gallery grid adjusts */
+  body.bio-page .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  body.bio-page .lightbox-content {
+    max-width: 90%;
+    max-height: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  body.bio-page .bio-header {
+    padding: 2rem 1rem;
+  }
+
+  body.bio-page .bio-header h1 {
+    font-size: 1.8rem;
+  }
+
+  body.bio-page .bio-section {
+    margin: 1rem;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  body.bio-page .bio-quote blockquote {
+    font-size: 1.2rem;
+  }
+
+  /* Smaller gallery grid on mobiles */
+  body.bio-page .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  body.bio-page .gallery-btn {
+    width: 80%;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+  }
+}
+/* ✅ Make profile image scale on smaller screens */
+@media (max-width: 1024px) {
+  body.index-page .section__pic-container {
+    width: 60%;   /* shrink for tablets */
+    height: auto;
+  }
+  body.index-page .section__pic-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%; /* keep round shape */
+  }
+}
+
+@media (max-width: 600px) {
+  body.index-page .section__pic-container {
+    width: 80%;   /* even smaller on mobile */
+    height: auto;
+  }
+}
+/* ✅ On mobile, hide desktop nav and show hamburger */
+@media (max-width: 1024px) {
+  body.index-page nav {
+    justify-content: space-between;
+    padding: 0 2rem;
+  }
+
+  body.index-page #desktop-nav {
+    display: none; /* Hide full nav */
+  }
+
+  body.index-page #hamburger-nav {
+    display: flex; /* Show mobile menu */
+  }
+@media (max-width: 1024px) {
+  body.index-page .menu-links {
+    position: absolute;
+    top: 60px;          /* show just below the hamburger */
+    right: 20px;        /* small gap from right edge */
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: none;      /* hidden by default */
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 180px;       /* small width, not full */
+    z-index: 1000;
+  }
+
+  /* ✅ When open, just display */
+  body.index-page .menu-links.open {
+    display: flex;
+  }
+
+  /* ✅ Links look clean */
+  body.index-page .menu-links a {
+    font-size: 1.2rem;
+    text-align: left;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    transition: background 0.2s ease-in-out;
+  }
+
+  body.index-page .menu-links a:hover {
+    background: #f2f2f2;
+  }
+}
 }

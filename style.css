@@ -31,6 +31,9 @@ a,
 nav,
 .nav-links {
   display: flex;
+  font-size: 2rem;
+  justify-content: end;
+
 }
 
 nav {
@@ -38,11 +41,16 @@ nav {
   align-items: center;
   height: 17vh;
 }
+.desktop-nav{
+  justify-content: end;
+}
 
 .nav-links {
   gap: 2rem;
   list-style: none;
-  font-size: 1.5rem;
+  margin-right: -30%;
+
+  
 }
 
 a {
@@ -59,6 +67,7 @@ a:hover {
 }
 
 .logo {
+  padding-left: 16%;
   font-size: 2rem;
 }
 
@@ -119,7 +128,7 @@ a:hover {
 }
 
 .menu-links.open {
-  max-height: 300px;
+  max-height: none;
 }
 
 .hamburger-icon.open span:first-child {
@@ -150,7 +159,7 @@ a:hover {
 
 section {
   padding-top: 4vh;
-  height: 96vh;
+  /* height: 96vh; */
   margin: 0 10rem;
   box-sizing: border-box;
   min-height: fit-content;
@@ -340,13 +349,13 @@ section {
   text-align: initial;
   flex-wrap: wrap;
   flex-direction: row;
-  gap: 2.5rem;
+  gap: 2rem;
   justify-content: space-around;
 }
 
 article {
   display: flex;
-  width: 10rem;
+  /* width: 10rem; */
   justify-content: space-around;
   gap: 0.5rem;
 }
