@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mehabalan – A Journey Beyond Books</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS (mirrors index.html exactly) ── */
+    :root {
+      --bg: #0a0a0f;
+      --surface: #16161f;
+      --surface2: #1e1e2a;
+      --border: rgba(255,255,255,0.08);
+      --text: #f0f0f5;
+      --muted: #8888aa;
+      --accent: #00e5a0;
+      --accent2: #0066ff;
+      --radius: 14px;
+      --nav: 68px;
+    }
+
+    body.light {
+      --bg: #f4f4f0;
+      --surface: #ffffff;
+      --surface2: #ebebе6;
+      --border: rgba(0,0,0,0.09);
+      --text: #111118;
+      --muted: #666677;
+      --accent: #007a55;
+      --accent2: #0055cc;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Mulish', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: background .3s, color .3s;
+    }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV (matches index.html navbar) ── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1rem, 4vw, 2.5rem);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: background .3s, border-color .3s;
+    }
+.bulletpoint{
+width: 20px;
+}
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.15rem;
+      color: var(--accent); letter-spacing: .04em;
+    }
+    .nav-logo span { color: var(--muted); font-weight: 400; }
+
+    .nav-right {
+      display: flex; align-items: center; gap: .65rem;
+    }
+
+    .nav-back {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .45rem 1rem;
+      border: 1px solid var(--border); border-radius: 8px;
+      font-size: .83rem; font-weight: 600; color: var(--muted);
+      transition: all .2s;
+    }
+    .nav-back:hover {
+      color: var(--accent); border-color: var(--accent);
+      background: rgba(0,229,160,.06);
+    }
+
+    /* theme button — identical to index.html */
+    .theme-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--surface2); border: 1px solid var(--border);
+      cursor: pointer; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s; color: var(--text);
+    }
+    .theme-btn:hover { border-color: var(--accent); }
+
+    /* ── HERO ── */
+    .bio-hero {
+      min-height: 60vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: calc(var(--nav) + 3rem) 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .bio-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 30% 40%, rgba(0,229,160,.07) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 70% 60%, rgba(0,102,255,.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .bio-hero-label {
+      font-family: 'Syne', sans-serif;
+      font-size: .72rem; font-weight: 700;
+      color: var(--accent); letter-spacing: .16em; text-transform: uppercase;
+      margin-bottom: .75rem;
+      opacity: 0; animation: fup .6s .1s forwards;
+    }
+    .bio-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 6vw, 3.8rem); font-weight: 800;
+      letter-spacing: -.02em; line-height: 1.1; margin-bottom: .9rem;
+      opacity: 0; animation: fup .6s .25s forwards;
+    }
+    .bio-hero p {
+      font-size: clamp(.95rem, 2.5vw, 1.15rem);
+      color: var(--muted); max-width: 520px; line-height: 1.75;
+      opacity: 0; animation: fup .6s .4s forwards;
+    }
+    @keyframes fup { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+
+    /* ── TIMELINE CONTAINER ── */
+    .bio-container {
+      max-width: 780px; margin: 0 auto;
+      padding: 2rem clamp(1rem,5vw,2rem) 5rem;
+    }
+
+    /* ── CHAPTER CARDS ── */
+    .chapter {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 0 1.25rem;
+      margin-bottom: 0;
+    }
+    .chapter-line {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .chapter-dot {
+      margin-top: 10px;
+      width: 44px; height: 44px; border-radius: 11px;
+      background: var(--surface2); border: 1px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .chapter-connector {
+      flex: 1; width: 2px; background: var(--border); margin: 6px 0;
+    }
+    .chapter-body {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.6rem;
+      margin-bottom: 1.5rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .chapter-body:hover {
+      border-color: rgba(0,229,160,.28);
+      transform: translateX(3px);
+    }
+    .chapter-body h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: .65rem; color: var(--text);
+    }
+    .chapter-body p {
+      font-size: .9rem; color: var(--muted); line-height: 1.82;
+    }
+    .chapter-body a {
+      color: var(--accent);
+      border-bottom: 1px solid rgba(0,229,160,.3);
+      transition: border-color .2s;
+    }
+    .chapter-body a:hover { border-color: var(--accent); }
+    .chapter-body strong { color: var(--text); }
+    .chapter-body em { color: var(--text); font-style: italic; }
+
+    /* ── QUOTE ── */
+    .bio-quote {
+      max-width: 780px; margin: 0 auto 2.5rem;
+      padding: 0 clamp(1rem,5vw,2rem);
+    }
+    .bio-quote blockquote {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1rem,2.8vw,1.35rem);
+      font-style: italic; color: var(--muted);
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.5rem;
+      background: var(--surface);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      line-height: 1.7;
+    }
+
+    /* ── GALLERY ── */
+    .gallery-section {
+      max-width: 780px; margin: 0 auto;
+      padding: 0 clamp(1rem,5vw,2rem) 4rem;
+    }
+    .gallery-toggle {
+      display: flex; align-items: center; gap: .75rem;
+      padding: 1rem 1.75rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text); font-size: .95rem; font-weight: 700;
+      cursor: pointer; font-family: 'Mulish', sans-serif;
+      transition: all .2s; width: 100%; justify-content: center;
+    }
+    .gallery-toggle:hover {
+      border-color: var(--accent); color: var(--accent);
+      background: rgba(0,229,160,.06);
+    }
+    .gallery-grid-wrap { display: none; margin-top: 1.25rem; }
+    .gallery-grid-wrap.open { display: block; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .gallery-grid img {
+      width: 100%; border-radius: 11px;
+      border: 1px solid var(--border);
+      cursor: pointer; aspect-ratio: 1; object-fit: cover;
+      transition: transform .2s, border-color .2s;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.04); border-color: var(--accent);
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.9); z-index: 2000;
+      align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 88vw; max-height: 88vh;
+      border-radius: 12px; box-shadow: 0 24px 64px rgba(0,0,0,.6);
+    }
+    .lightbox-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+    }
+    .lightbox-close:hover { background: var(--accent); color: #000; }
+
+    /* ── TO BE CONTINUED ── */
+    .bio-continue {
+      text-align: center; padding: 3rem 1rem;
+      font-size: 1.15rem; color: var(--muted); font-style: italic;
+    }
+    .bio-continue span {
+      animation: fadePulse 2.5s infinite alternate; display: inline-block;
+    }
+    @keyframes fadePulse {
+      from { opacity: .5; transform: scale(.98); }
+      to   { opacity: 1;  transform: scale(1.02); }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem clamp(1rem,5vw,2.5rem);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      transition: border-color .3s;
+    }
+    .footer-logo { font-family:'Syne',sans-serif; font-weight:800; color:var(--accent); font-size:.92rem; }
+    footer p { font-size: .8rem; color: var(--muted); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .65s ease,transform .65s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    /* ── MOBILE ── */
+    @media(max-width:600px) {
+      .chapter { grid-template-columns: 40px 1fr; gap: 0 .9rem; }
+      .chapter-dot {margin-top: 13px; width: 36px; height: 36px; font-size: 1rem; border-radius: 8px; }
+      .gallery-grid { grid-template-columns: repeat(2,1fr); }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="navbar">
+  <div class="nav-logo">Mehabalan <span>QA</span></div>
+  <div class="nav-right">
+    <!-- same theme toggle as index.html -->
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    <a href="index.html" class="nav-back">← Portfolio</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="bio-hero">
+  <p class="bio-hero-label">My Story</p>
+  <h1>A Journey Beyond Books</h1>
+  <p>From the soil of a village to the screens of technology — the story of Mehabalan.</p>
+</div>
+
+<!-- ── CHAPTERS ── -->
+<div class="bio-container">
+
+  <div class="chapter reveal">
+    <div class="chapter-line">
+      <div class="chapter-dot">
+        <img class="bulletpoint" src="assets/experience.png">
+      </div>
+      <div class="chapter-connector"></div>
+    </div>
+    <div class="chapter-body">
+      <h2>Childhood &amp; Early Life</h2>
+      <p>
+        Mehabalan, the youngest son of Sethuraja and Sasikala, was born in <strong>Thamaraikulam</strong>, a growing village in Ramanathapuram, Tamil Nadu. Loved deeply by his elder brothers, Manobalan and Vinobalan, he grew up in a close-knit farmer family.
+        <br><br>
+        Unlike most kids his age, life lessons came outside classrooms. By 5th standard, he was confidently driving cars, bikes, and even heavy transport vehicles — skills far beyond his years. Farming, plumbing, and basic electrical work were everyday learnings, shaping his problem-solving mindset early in life.
+      </p>
+    </div>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-line">
+      <div class="chapter-dot">
+        <img class="bulletpoint" src="assets/experience.png">
+      </div>
+      <div class="chapter-connector"></div>
+    </div>
+    <div class="chapter-body">
+      <h2>The Creative Spark – YouTube in 2018</h2>
+      <p>
+        In 2018, while still in school, Mehabalan explored his creative side by starting a <a href="https://youtube.com/@mehabalan?si=vSlH_YIodhEE9T8W" target="_blank">YouTube channel</a>. Shooting, editing, and posting — all done by himself — he documented random moments and vlogs. Though not always consistent, it revealed his independent and creative nature early on.
+      </p>
+    </div>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-line">
+      <div class="chapter-dot">
+        <img class="bulletpoint" src="assets/experience.png">
+      </div>
+      <div class="chapter-connector"></div>
+    </div>
+    <div class="chapter-body">
+      <h2>College Life – The Wanderer</h2>
+      <p>
+        In 2020, he joined <strong>RVS College of Engineering, Coimbatore</strong>, pursuing Computer Science and Engineering. But he wasn't the typical studious college kid — he wandered through Coimbatore, Tirupur, and Erode, enjoying life more than lectures.
+        <br><br>
+        His carefree attitude led to 6 arrears. But in his final semester, he shocked everyone by <strong>clearing 11 papers in a single attempt</strong>, proving his quick learning ability when focused. This was his first major comeback.
+      </p>
+    </div>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-line">
+      <div class="chapter-dot">
+        <img class="bulletpoint" src="assets/experience.png">
+      </div>
+      <div class="chapter-connector"></div>
+    </div>
+    <div class="chapter-body">
+      <h2>Bangalore – Lost in Translation, Quick in Adaptation</h2>
+      <p>
+        After graduation, Mehabalan moved to <strong>Bangalore</strong> in search of opportunities. On his first day, he couldn't understand a word of Kannada — even the bus conductor's words felt like an unknown world.
+        <br><br>
+        But within <strong>15 days</strong>, he learned 80% of Kannada — enough to understand and speak confidently. His Kannada-speaking roommate admired his speed of learning. During this time, he also self-studied Core Java, showing once again his ability to master complex skills on his own.
+      </p>
+    </div>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-line">
+      <div class="chapter-dot">
+        <img class="bulletpoint" src="assets/experience.png">
+      </div>
+      <div class="chapter-connector"></div>
+    </div>
+    <div class="chapter-body">
+      <h2>Job Struggles, Yet Happiness</h2>
+      <p>
+        Like many freshers, Mehabalan faced the classic dilemma: <em>"Everyone wants experience before giving you a job, but how to get experience without a job?"</em>
+        <br><br>
+        For six months, he attended countless interviews but faced rejections. Yet, he embraced Bangalore's climate, made friends, and continued vlogging — capturing the beauty of life even without a job.
+      </p>
+    </div>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-line">
+      <div class="chapter-dot">
+        <img class="bulletpoint" src="assets/experience.png">
+      </div>
+      <div class="chapter-connector"></div>
+    </div>
+    <div class="chapter-body">
+      <h2>Chennai – The Breakthrough</h2>
+      <p>
+        After six months in Bangalore, he moved to <strong>Chennai</strong> for a fresh start. Here, he finally got his break — joining the IT industry as a <strong>QA Intern</strong>.
+        <br><br>
+        From there, he grew into a <strong>Software Tester and QA Analyst</strong>, mastering Manual and Automation Testing for web and mobile apps, API testing, and advanced QA methodologies using tools like Jira, SonarQube, WinSCP, and PuTTY.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── QUOTE ── -->
+<div class="bio-quote reveal">
+  <blockquote>
+    "From the soil of a village to the screens of technology, my journey proves that learning has no boundaries."
+  </blockquote>
+</div>
+
+<!-- ── GALLERY ── -->
+<div class="gallery-section reveal">
+  <button class="gallery-toggle" id="galleryBtn" onclick="toggleGallery()">
+    📸 View My Gallery
+  </button>
+  <div class="gallery-grid-wrap" id="galleryWrap">
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</div>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="Gallery image">
+</div>
+
+<!-- ── TO BE CONTINUED ── -->
+<div class="bio-continue">
+  <span>✨ To Be Continued… ✨</span>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span class="footer-logo"></span>
+  <p>© 2026 Mehabalan | Journey of a Dreamer</p>
+</footer>
+
+<script>
+  /* ── THEME (identical logic to index.html) ── */
+  const themeBtn = document.getElementById('themeBtn');
+
+  // On load: apply saved theme
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light');
+    themeBtn.textContent = '☀️';
+  }
+
+  function toggleTheme() {
+    const isLight = document.body.classList.toggle('light');
+    themeBtn.textContent = isLight ? '☀️' : '🌙';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  }
+
+  /* ── GALLERY ── */
+  const galleryImages = ["photo1.jpg","photo7.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg","photo6.jpg"];
+  const galleryFolder = "gallery/";
+  const grid = document.getElementById('galleryGrid');
+
+  galleryImages.forEach(img => {
+    const el = document.createElement('img');
+    el.src = galleryFolder + img;
+    el.alt = "Gallery photo";
+    el.loading = "lazy";
+    el.onclick = () => openLightbox(galleryFolder + img);
+    grid.appendChild(el);
+  });
+
+  function toggleGallery() {
+    const wrap = document.getElementById('galleryWrap');
+    wrap.classList.toggle('open');
+    document.getElementById('galleryBtn').textContent =
+      wrap.classList.contains('open') ? '🔼 Hide Gallery' : '📸 View My Gallery';
+  }
+
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(e) {
+    if (!e || e.target !== document.getElementById('lightboxImg')) {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ── SCROLL REVEAL ── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
